@@ -1,6 +1,6 @@
-#Trading Bot OOP Java
+# Trading Bot OOP Java
 
-##Members:
+## Members:
 - Omar Guajardo
 - Samuel Yanez 
 - Sabih Jalil
