@@ -2,7 +2,10 @@
 public class Main {
 	
 	public static void main(String[] args) {
-		System.out.println("Working?");
+		Yahoo client = new Yahoo();
+		System.out.println(client.getStockPrice("TSLA"));
+		System.out.println(client.getStockPrice("GME"));
+		
 	}
 
 }
