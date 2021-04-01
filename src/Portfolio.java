@@ -12,20 +12,24 @@ public class Portfolio {
 	
 	
 	public void showPortofolio() {
-		//TODO:Show portfolio
-//		System.out.println(" ");
-//		System.out.printf("%-11s %-9s %-9s %-9s %-9s %-9s %-11s %-9s %-9s\n",
-//				"Ticker","Shares","Bought","Current Price","Earnings");
-//		
-//		System.out.printf("%-11s %-9i %-9d %-9d %-9d",
-//				s.getTickerNumber(),
-//				s.getShares(),
-//				s.getBought(),
-//				s.getPriceOfPurchase(),
-//				s.getCurrentPrice(),
-//				s.getEarnings()
-//				);
-//		System.out.println(" ");
+		//TODO:Show Portfolio
+		System.out.println(" ");
+		System.out.printf("%-11s %-9s %-9s %-9s %-9s %-9s %-11s %-9s %-9s\n",
+				"Ticker","Shares","Bought","Current Price","Earnings");
+		for(Stock s : stocks) {
+			if(s == null) {
+				break;
+			}
+			System.out.printf("%-11s %-9i %-9d %-9d %-9d",
+					s.getTickerNumber(),
+					s.getShares(),
+					s.getPriceOfPurchase(),
+					s.getCurrentPrice(),
+					s.getEarnings()
+					);
+		}
+		
+		System.out.println(" ");
 	}
 	
 	//Iterates through all the stocks available
@@ -33,11 +37,11 @@ public class Portfolio {
 	public double getPortfolioValue() {
 		double total_value = 0.0;
 		for(Stock s : this.stocks) {
-			//TODO: Merge 
-			// total_value = s.getCurrentPrice() * s.getShares();
+			 total_value = s.getCurrentPrice() * s.getShares();
 		}
 		return total_value;
 	}
+	
 	//Adding a Stock
 	public void addStock(Stock stock) {
 		stocks[current_index] = stock;
