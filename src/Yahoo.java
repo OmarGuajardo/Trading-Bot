@@ -11,10 +11,6 @@ public class Yahoo {
 	private String MAIN_ENDPOINT = "https://yahoo-finance15.p.rapidapi.com/api/yahoo/";
 	private String API_KEY = "8aa66e0b7bmshdc7f8bdcbb1201dp1ce5cejsn59112c64ee82";
 	
-	public Yahoo() {
-		
-	}
-	
 	
 	//Takes in the Ticker of a stock and returns the current raw price 
 	public double getStockPrice (String ticker){
