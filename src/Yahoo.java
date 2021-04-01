@@ -92,40 +92,40 @@ public class Yahoo {
 		
 		
 		//Takes in the Ticker of a stock and returns the current raw price 
-				public String getRecommendation (String ticker){
-					String ENDPOINT = MAIN_ENDPOINT + "qu/quote/" + ticker + "/financial-data";
-					String recommendation = null;
-					HttpRequest request = HttpRequest.newBuilder()
-							.uri(URI.create(ENDPOINT))
-							.header("x-rapidapi-key", API_KEY)
-							.header("x-rapidapi-host", "yahoo-finance15.p.rapidapi.com")
-							.method("GET", HttpRequest.BodyPublishers.noBody())
-							.build();
-					HttpResponse<String> response;
-					try {
-						response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
-						String body = response.body();
-						try {
-							JSONObject json = new JSONObject(body);
-							recommendation = json.getJSONObject("financialData")
-									.getString("recommendationKey");
-									
+		public String getRecommendation (String ticker){
+			String ENDPOINT = MAIN_ENDPOINT + "qu/quote/" + ticker + "/financial-data";
+			String recommendation = null;
+			HttpRequest request = HttpRequest.newBuilder()
+					.uri(URI.create(ENDPOINT))
+					.header("x-rapidapi-key", API_KEY)
+					.header("x-rapidapi-host", "yahoo-finance15.p.rapidapi.com")
+					.method("GET", HttpRequest.BodyPublishers.noBody())
+					.build();
+			HttpResponse<String> response;
+			try {
+				response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+				String body = response.body();
+				try {
+					JSONObject json = new JSONObject(body);
+					recommendation = json.getJSONObject("financialData")
+							.getString("recommendationKey");
 							
-						} catch (JSONException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-						
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					return recommendation ;
+					
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
+				
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return recommendation ;
+		}
 	
 	
 }
