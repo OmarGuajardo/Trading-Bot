@@ -51,4 +51,7 @@ public class Stock {
 	public int getShares() {
 		return this.shares;
 	}
+	public long getID() {
+		return this.id;
+	}
 }

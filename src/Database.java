@@ -1,5 +1,6 @@
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -8,6 +9,7 @@ import java.util.ArrayList;
 public class Database {
 
 	private Connection connection;
+
 	public Database() throws SQLException {
 		String s1 = "jdbc:mysql://35.222.96.220:3306/trading_bot?useSSL=false";
 		String s2 = "jdbc:mysql://35.238.103.74:3306/carmax2?useSSL=false";
@@ -40,6 +42,18 @@ public class Database {
 		
 	}
 	
+	
+	public void addStockDB(Stock s) throws SQLException {
+		
+		String statement = ("INSERT INTO Portfolio VALUES ("+"'"+
+									s.getTickerNumber()+"',"+
+									s.getCurrentPrice()+","+
+									s.getPriceOfPurchase()+","+
+									s.getShares()+","+
+									s.getID()+");");
+		PreparedStatement preparedStatement = this.connection.prepareStatement(statement);
+		preparedStatement.executeUpdate();
+	}
 	
 	
 	//returns a connection that will allow other classes to mutate the 
