@@ -22,7 +22,7 @@ public class Database {
 	//This function gets all the information in the database
 	//makes a ListArray of the Stocks and initializes the Portfolio 
 	//class with that ListArray
-	public void setPortfolio() throws SQLException {
+	public Portfolio setPortfolio() throws SQLException {
 		Statement statement = this.connection.createStatement();
 		ArrayList<Stock> stocks = new ArrayList<Stock>();
 		ResultSet rs = statement.executeQuery("select * from Portfolio");
@@ -35,10 +35,8 @@ public class Database {
 					rs.getLong(5));
 			stocks.add(s);
 		}
-		
-		for(Stock s: stocks) {
-			System.out.println(s.getTickerNumber());
-		}
+		Portfolio p = new Portfolio(stocks);
+		return p;
 		
 	}
 	
@@ -51,6 +49,13 @@ public class Database {
 									s.getPriceOfPurchase()+","+
 									s.getShares()+","+
 									s.getID()+");");
+		PreparedStatement preparedStatement = this.connection.prepareStatement(statement);
+		preparedStatement.executeUpdate();
+	}
+	
+	public void removeStockDB(long row_id) throws SQLException {
+		
+		String statement = ("DELETE FROM Portfolio WHERE row_id="+row_id+";");
 		PreparedStatement preparedStatement = this.connection.prepareStatement(statement);
 		preparedStatement.executeUpdate();
 	}
