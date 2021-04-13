@@ -31,13 +31,14 @@ public class Members {
 	}
 	
 	
-	public void logInUser(String email, String password) {
+	public boolean logInUser(String email, String password) {
 		for(User u : this.users) {
 			if(u.checkCredentials(email, password) ) {
 				this.curr_user = u;
-				break;
+				return true;
 			}
 		}
+		return false;
 	}
 	
 	//Adds User to the users ArrayList
