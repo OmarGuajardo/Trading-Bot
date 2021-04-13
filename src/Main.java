@@ -1,17 +1,16 @@
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class Main {
 	
 	public static void main(String[] args) throws SQLException {
 		
 		Database db = new Database();
-		Portfolio portfolio = db.setPortfolio();
 		
-		
-		
-		portfolio.showPortofolio();
-		
+		Members m = db.setUsers();
+		m.showUsers();
 		db.closeConnection();
 		
 		

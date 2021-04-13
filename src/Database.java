@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class Database {
 
-	private Connection connection;
+	public static  Connection connection;
 
 	public Database() throws SQLException {
 		String s1 = "jdbc:mysql://35.222.96.220:3306/trading_bot?useSSL=false";
@@ -18,21 +18,22 @@ public class Database {
 
 	
 	//Pulls all the Users information stored in the database locally
-	public Portfolio setUsers() throws SQLException {
+	public Members setUsers() throws SQLException {
 		Statement statement = this.connection.createStatement();
-		ArrayList<Stock> stocks = new ArrayList<Stock>();
-		ResultSet rs = statement.executeQuery("select * from Portfolio");
+		ArrayList<User> users = new ArrayList<User>();
+		ResultSet rs = statement.executeQuery("select * from Users");
+		
 		while(rs.next()) {
-			Stock s = new Stock(
-					rs.getString(1),
-					rs.getDouble(2),
-					rs.getDouble(3),
-					rs.getInt(4),
-					rs.getLong(5));
-			stocks.add(s);
+			User u = new User(
+					rs.getLong(1),
+					rs.getString(2),
+					rs.getString(3),
+					rs.getString(4),
+					rs.getString(5));
+			users.add(u);
 		}
-		Portfolio p = new Portfolio(stocks);
-		return p;
+		Members m = new Members(users);
+		return m;
 		
 	}
 	
@@ -58,7 +59,7 @@ public class Database {
 	}
 	
 	
-	public void addStockDB(Stock s) throws SQLException {
+	public static void addStockDB(Stock s) throws SQLException {
 		
 		String statement = ("INSERT INTO Portfolio VALUES ("+"'"+
 									s.getTickerNumber()+"',"+
@@ -66,26 +67,19 @@ public class Database {
 									s.getPriceOfPurchase()+","+
 									s.getShares()+","+
 									s.getID()+");");
-		PreparedStatement preparedStatement = this.connection.prepareStatement(statement);
+		PreparedStatement preparedStatement = connection.prepareStatement(statement);
 		preparedStatement.executeUpdate();
 	}
 	
-	public void removeStockDB(long row_id) throws SQLException {
+	public static void removeStockDB(long row_id) throws SQLException {
 		
 		String statement = ("DELETE FROM Portfolio WHERE row_id="+row_id+";");
-		PreparedStatement preparedStatement = this.connection.prepareStatement(statement);
+		PreparedStatement preparedStatement = connection.prepareStatement(statement);
 		preparedStatement.executeUpdate();
-	}
-	
-	
-	//returns a connection that will allow other classes to mutate the 
-	//Database by making statements
-	public Connection getConnection() {
-		return this.connection;
 	}
 	
 	//Will close connection to the Database
 	public void closeConnection() throws SQLException {
-		this.connection.close();
+		connection.close();
 	}
 }

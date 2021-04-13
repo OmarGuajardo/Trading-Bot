@@ -5,10 +5,31 @@ public class Members {
 	ArrayList<User> users = new ArrayList<User>();
 	User curr_user;
 	
+	
 	public Members(ArrayList<User> users) {
 		this.users = users;
 		this.curr_user = null;
 	}
+	
+	
+	
+	public void showUsers() {
+		System.out.println(" ");
+		System.out.printf("%-15s %-12s %-12s %-12s\n",
+				"User ID","First Name","Last Name","Email");
+		for(User s : this.users) {
+			System.out.printf("%-15s %-12s %-12s %-12s \n",
+					s.getUserId(),
+					s.getFirstName(),
+					s.getLastName(),
+					s.getEmail()
+					);
+			System.out.println(" ");
+		}
+		
+		System.out.println(" ");
+	}
+	
 	
 	public void logInUser(String email, String password) {
 		for(User u : this.users) {

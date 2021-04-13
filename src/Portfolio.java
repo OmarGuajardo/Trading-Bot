@@ -49,11 +49,11 @@ public class Portfolio {
 	//Adding a Stock
 	public void addStock(Stock stock, Database db) throws SQLException {
 		this.stocks.add(stock);
-		db.addStockDB(stock);
+		Database.addStockDB(stock);
 	}
 	
 	//Removing a Stock
-	public void removeStock(long id, Database db) throws SQLException {
+	public void removeStock(long id) throws SQLException {
 		Stock stockRemove = null;
 		for(Stock s : stocks) {
 			if(s.getID() == id) {
@@ -62,7 +62,7 @@ public class Portfolio {
 			}
 		}
 		stocks.remove(stockRemove);
-		db.removeStockDB(id);
+		Database.removeStockDB(id);
 		
 	}
 }
