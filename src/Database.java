@@ -18,7 +18,7 @@ public class Database {
 
 	
 	//Pulls all the Users information stored in the database locally
-	public Members setUsers() throws SQLException {
+	public Members fetchMembers() throws SQLException {
 		Statement statement = connection.createStatement();
 		ArrayList<User> users = new ArrayList<User>();
 		ResultSet rs = statement.executeQuery("select * from Users");
@@ -40,17 +40,17 @@ public class Database {
 	//This function gets all the information in the database
 	//makes a ListArray of the Stocks and initializes the Portfolio 
 	//class with that ListArray
-	public Portfolio setPortfolio() throws SQLException {
+	public Portfolio fetchPortfolio(User u) throws SQLException {
 		Statement statement = this.connection.createStatement();
 		ArrayList<Stock> stocks = new ArrayList<Stock>();
-		ResultSet rs = statement.executeQuery("select * from Portfolio");
+		ResultSet rs = statement.executeQuery("select * from Stock where user_id="+u.getUserId()+";");
 		while(rs.next()) {
 			Stock s = new Stock(
-					rs.getString(1),
-					rs.getDouble(2),
+					rs.getString(2),
 					rs.getDouble(3),
-					rs.getInt(4),
-					rs.getLong(5));
+					rs.getDouble(4),
+					rs.getInt(5),
+					rs.getLong(1));
 			stocks.add(s);
 		}
 		Portfolio p = new Portfolio(stocks);
