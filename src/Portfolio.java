@@ -1,32 +1,36 @@
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class Portfolio {
 
 	private int max_stocks = 100;
 	private int current_index = 0;
-	private Stock[] stocks = new Stock[this.max_stocks];
+	private ArrayList<Stock> stocks = new ArrayList<Stock>();
+
 	
-	public Portfolio(Stock[] stocks) {
-		current_index = stocks.length;
+	public Portfolio(ArrayList<Stock> stocks) {
+		current_index = stocks.size();
 		this.stocks = stocks;
 	}
 	
 	
 	public void showPortofolio() {
-		//TODO:Show Portfolio
 		System.out.println(" ");
-		System.out.printf("%-11s %-9s %-9s %-9s %-9s %-9s %-11s %-9s %-9s\n",
-				"Ticker","Shares","Bought","Current Price","Earnings");
+		System.out.printf("%-17s %-11s %-9s %-9s %-9s %-9s\n",
+				"ID","Ticker","Shares","Bought","Price","Earnings");
 		for(Stock s : stocks) {
 			if(s == null) {
 				break;
 			}
-			System.out.printf("%-11s %-9i %-9d %-9d %-9d",
+			System.out.printf("%-17d %-11s %-9d %-9.2f %-9.2f %-9.2f",
+					s.getID(),
 					s.getTickerNumber(),
 					s.getShares(),
 					s.getPriceOfPurchase(),
 					s.getCurrentPrice(),
 					s.getEarnings()
 					);
+			System.out.println(" ");
 		}
 		
 		System.out.println(" ");
@@ -43,34 +47,22 @@ public class Portfolio {
 	}
 	
 	//Adding a Stock
-	public void addStock(Stock stock) {
-		stocks[current_index] = stock;
+	public void addStock(Stock stock, Database db) throws SQLException {
+		this.stocks.add(stock);
+		Database.addStockDB(stock);
 	}
 	
 	//Removing a Stock
-	public void removeStock(Stock stock) {
-		int empty_index = 0;
-		
-		//Find the stock that we want to remove
-		for(int i = 0 ; i < max_stocks; i++) {
-			if(stocks[i] == stock) {
-				stocks[i] = null;
-				empty_index = i;
+	public void removeStock(long id) throws SQLException {
+		Stock stockRemove = null;
+		for(Stock s : stocks) {
+			if(s.getID() == id) {
+				stockRemove = s;
+				
 			}
 		}
+		stocks.remove(stockRemove);
+		Database.removeStockDB(id);
 		
-		//Shift the array to cover up the 'hole'
-		for(int i = empty_index ; i < max_stocks-1; i++) {
-			
-			//The next item in the array will be null once the 'hole' has been covered
-			//when that happens then we can just break out of the loop
-			if(stocks[i+1] == null) {
-				break;
-			}
-			stocks[i] = stocks[i+1];
-			stocks[i+1] = null;
-		}
-		
-		this.current_index -= 1;
 	}
 }
