@@ -40,6 +40,8 @@ public class Dashboard extends JFrame
         scroll.setLocation(50, 50);
         add(scroll);
 
+        
+        
         //Earnings *add how to calculate earnings or function that does so
         JLabel messageLabel1 = new JLabel("Earnings: ");
         messageLabel1.setSize(100, 30);
@@ -166,6 +168,12 @@ public class Dashboard extends JFrame
 
 
         
+    }
+    
+    public void addData() {
+    	 Object[][] d={{"1618279068579","TSLA","10","739.64","718.32","213.20",""}};
+    	 this.dm.setDataVector(d, this.columnNames);
+    	 this.dm.fireTableDataChanged();
     }
 
     private class BUY_buttonClicked implements ActionListener

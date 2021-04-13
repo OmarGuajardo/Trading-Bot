@@ -46,7 +46,7 @@ public class Database {
 		ResultSet rs = statement.executeQuery("select * from Stock where user_id="+u.getUserId()+";");
 		while(rs.next()) {
 			Stock s = new Stock(
-					rs.getLong(1),
+					rs.getLong(6),
 					rs.getString(2),
 					rs.getDouble(3),
 					rs.getDouble(4),
@@ -71,9 +71,9 @@ public class Database {
 		preparedStatement.executeUpdate();
 	}
 	
-	public static void removeStockDB(long row_id) throws SQLException {
+	public static void removeStockDB(long stock_id) throws SQLException {
 		
-		String statement = ("DELETE FROM Stock WHERE row_id="+row_id+";");
+		String statement = ("DELETE FROM Stock WHERE stock_id="+stock_id+";");
 		PreparedStatement preparedStatement = connection.prepareStatement(statement);
 		preparedStatement.executeUpdate();
 	}
