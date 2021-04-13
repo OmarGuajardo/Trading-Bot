@@ -16,7 +16,9 @@ public class User {
 	}
 	
 	public boolean checkCredentials(String email, String password) {
-		return (this.email == email && this.password == password);
+		System.out.println("Given: " +email + " " + password);
+		System.out.println("Correct: " + this.email + " " + this.password);
+		return (this.email.equals(email) && this.password.equals(password));
 	}
 	
 	public String getFirstName() {

@@ -33,9 +33,10 @@ public class Members {
 	
 	public void logInUser(String email, String password) {
 		for(User u : this.users) {
-			//TODO:Look for an user that has a matching
-			//email and password and set this.curr_user 
-			//equal to that
+			if(u.checkCredentials(email, password) ) {
+				this.curr_user = u;
+				break;
+			}
 		}
 	}
 	
