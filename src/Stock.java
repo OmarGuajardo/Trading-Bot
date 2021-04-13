@@ -8,25 +8,25 @@ public class Stock {
 	private float rsi_index;
 	private String suggested_move;
 	int shares;
-	long id;
+	long stock_id;
 	public Stock() {}
 	
 	
-	public Stock(String ticker_number,
-				 double price_of_purchase,
-				 double current_price,
-//				 String trend,
-//				 float rsi_index,
-				 int shares,
-				 long id
-				 ) {
+	public Stock(
+				long stock_id,
+				String ticker_number,
+				double price_of_purchase,
+				double current_price,
+//				String trend,
+//				float rsi_index,
+				int shares) {
 		this.ticker_number = ticker_number;
 		this.price_of_purchase = price_of_purchase;
 		this.current_price = current_price;
 		this.trend = "UP";
 		this.rsi_index = 23;
 		this.shares = shares;
-		this.id = id;
+		this.stock_id = stock_id;
 	}
 	
 	public String getTickerNumber() {
@@ -52,6 +52,6 @@ public class Stock {
 		return this.shares;
 	}
 	public long getID() {
-		return this.id;
+		return this.stock_id;
 	}
 }

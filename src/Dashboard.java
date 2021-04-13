@@ -40,6 +40,8 @@ public class Dashboard extends JFrame
         scroll.setLocation(50, 50);
         add(scroll);
 
+        
+        
         //Earnings *add how to calculate earnings or function that does so
         JLabel messageLabel1 = new JLabel("Earnings: ");
         messageLabel1.setSize(100, 30);
