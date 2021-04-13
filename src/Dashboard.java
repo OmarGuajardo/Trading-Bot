@@ -29,8 +29,9 @@ public class Dashboard extends JFrame
     {
         super("Portfolio");
         setSize(900,600);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         setLayout(null);
+
 
         table = new JTable();
         dm = new DefaultTableModel(data, columnNames);
@@ -223,6 +224,8 @@ public class Dashboard extends JFrame
         public void actionPerformed(ActionEvent e)
         {
             System.out.println("LOGOUT BUTTON WORKS");
+            JOptionPane.showMessageDialog(null, "You've been logged out!");
+            setVisible(false);
         }
     }
 
