@@ -6,7 +6,7 @@ public class Main {
 	
 
 	public static void main(String[] args) throws SQLException {
-		new Dashboard();	
+//		new Dashboard();	
 		//
 			Database db = new Database();
 			Members m = db.fetchMembers();
@@ -16,6 +16,7 @@ public class Main {
 			if(m.curr_user != null) {
 				Portfolio user_portfolio = db.fetchPortfolio(m.curr_user);
 				user_portfolio.showPortofolio();
+				
 			}
 		//
 	}

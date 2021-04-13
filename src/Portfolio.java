@@ -47,7 +47,7 @@ public class Portfolio {
 	}
 	
 	//Adding a Stock
-	public void addStock(Stock stock, Database db) throws SQLException {
+	public void addStock(Stock stock) throws SQLException {
 		this.stocks.add(stock);
 		Database.addStockDB(stock);
 	}
