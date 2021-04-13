@@ -24,8 +24,6 @@ public class Login extends JFrame {
         int y = (int) ((dimension.getHeight() - getHeight()) / 2);
         setLocation(x, y);
 
-        /////////////////// NEEDS TO ACCESSES THE DATABASE FIRST TO COMPARE TO TEXTFIELDS /////////
-        //new Database();
 
         messageLabel1 = new JLabel("Email: ");
         messageLabel1.setSize(100, 30);
@@ -59,9 +57,25 @@ public class Login extends JFrame {
     //DASHBOARD MAY NEED USER PARAMETER TO IMPLEMENT USER INFO
     private class Button1Clicked implements ActionListener
     {
+
+        /////////////////// NEEDS TO ACCESSES THE DATABASE FIRST TO COMPARE TO TEXTFIELDS /////////
+        Database current = new Database();
+        Members currentMembers = current.fetchMembers();
+
+        private Button1Clicked() throws SQLException {
+        }
+
         public void actionPerformed(ActionEvent e)
         {
-            new Dashboard();
+            if (currentMembers.logInUser(textField1.getText(),textField2.getText()))
+            {
+                new Dashboard();
+            }
+
+            else
+            {
+                JOptionPane.showMessageDialog(null, "Incorrect Login Information");
+            }
         }
     }
 }
