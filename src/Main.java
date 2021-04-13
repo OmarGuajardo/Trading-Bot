@@ -10,7 +10,11 @@ public class Main {
 		Database db = new Database();
 		
 		Members m = db.setUsers();
+		User u = new User(System.currentTimeMillis(),"Abby","Gomez","12345","abby@yahoo.com");
+		m.addUser(u);
+		
 		m.showUsers();
+		
 		db.closeConnection();
 		
 		

@@ -1,3 +1,4 @@
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class Members {
@@ -24,7 +25,6 @@ public class Members {
 					s.getLastName(),
 					s.getEmail()
 					);
-			System.out.println(" ");
 		}
 		
 		System.out.println(" ");
@@ -40,8 +40,9 @@ public class Members {
 	}
 	
 	//Adds User to the users ArrayList
-	public void addUser(User u) {
+	public void addUser(User u) throws SQLException {
 		this.users.add(u);
+		Database.addUserDB(u);
 		//TODO: Add the user in the database as well
 	}
 	

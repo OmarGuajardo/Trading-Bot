@@ -31,4 +31,8 @@ public class User {
 	public long getUserId() {
 		return this.user_id;
 	}
+
+	public String getPassword() {
+		return this.password;
+	}
 }

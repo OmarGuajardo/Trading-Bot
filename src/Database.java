@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class Database {
 
-	public static  Connection connection;
+	private static Connection connection;
 
 	public Database() throws SQLException {
 		String s1 = "jdbc:mysql://35.222.96.220:3306/trading_bot?useSSL=false";
@@ -19,7 +19,7 @@ public class Database {
 	
 	//Pulls all the Users information stored in the database locally
 	public Members setUsers() throws SQLException {
-		Statement statement = this.connection.createStatement();
+		Statement statement = connection.createStatement();
 		ArrayList<User> users = new ArrayList<User>();
 		ResultSet rs = statement.executeQuery("select * from Users");
 		
@@ -77,6 +77,20 @@ public class Database {
 		PreparedStatement preparedStatement = connection.prepareStatement(statement);
 		preparedStatement.executeUpdate();
 	}
+	
+	public static void addUserDB(User u) throws SQLException {
+			
+			String statement = ("INSERT INTO Users VALUES ("+
+										"'"+ u.getUserId()+"',"+
+										"'"+u.getFirstName()+"',"+
+										"'"+u.getLastName()+"',"+
+										"'"+u.getPassword()+"',"+
+										"'"+u.getEmail()+"');");
+			PreparedStatement preparedStatement = connection.prepareStatement(statement);
+			preparedStatement.executeUpdate();
+		}
+	
+	
 	
 	//Will close connection to the Database
 	public void closeConnection() throws SQLException {
