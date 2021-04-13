@@ -12,13 +12,30 @@ public class Database {
 
 	public Database() throws SQLException {
 		String s1 = "jdbc:mysql://35.222.96.220:3306/trading_bot?useSSL=false";
-		String s2 = "jdbc:mysql://35.238.103.74:3306/carmax2?useSSL=false";
-
-		
 		connection = DriverManager.getConnection(s1,"root","qwerty12345");
 		
 	}
 
+	
+	//Pulls all the Users information stored in the database locally
+	public Portfolio setUsers() throws SQLException {
+		Statement statement = this.connection.createStatement();
+		ArrayList<Stock> stocks = new ArrayList<Stock>();
+		ResultSet rs = statement.executeQuery("select * from Portfolio");
+		while(rs.next()) {
+			Stock s = new Stock(
+					rs.getString(1),
+					rs.getDouble(2),
+					rs.getDouble(3),
+					rs.getInt(4),
+					rs.getLong(5));
+			stocks.add(s);
+		}
+		Portfolio p = new Portfolio(stocks);
+		return p;
+		
+	}
+	
 	//This function gets all the information in the database
 	//makes a ListArray of the Stocks and initializes the Portfolio 
 	//class with that ListArray
