@@ -3,7 +3,7 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import java.sql.SQLException;
 
 
 public class Dashboard extends JFrame
@@ -224,8 +224,15 @@ public class Dashboard extends JFrame
         public void actionPerformed(ActionEvent e)
         {
             System.out.println("LOGOUT BUTTON WORKS");
-            JOptionPane.showMessageDialog(null, "You've been logged out!");
+            JOptionPane.showMessageDialog(null, "You have been logged out!");
             setVisible(false);
+
+            //logging out creates new login panel;
+            try {
+                new Login();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
         }
     }
 
