@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module type="JAVA_MODULE" version="4">
   <component name="EclipseModuleManager">
-    <libelement value="file:///Users/omarguajardo/Downloads/java-json.jar" />
+    <libelement value="file://$USER_HOME$/Downloads/java-json.jar" />
     <src_description expected_position="0">
       <src_folder value="file://$MODULE_DIR$/src" expected_position="0" />
     </src_description>
@@ -17,7 +17,7 @@
     <orderEntry type="module-library" exported="">
       <library name="java-json.jar">
         <CLASSES>
-          <root url="file:///Users/omarguajardo/Downloads/java-json.jar" />
+          <root url="file://$USER_HOME$/Downloads/java-json.jar" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -45,5 +45,6 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="mysql-connector-java-8.0.23" level="project" />
   </component>
 </module>
