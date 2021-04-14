@@ -69,8 +69,13 @@ public class Login extends JFrame {
         {
             if (currentMembers.logInUser(textField1.getText(),textField2.getText()))
             {
-                dispose();
-                new Dashboard();
+                try {
+                    Portfolio p = current.fetchPortfolio(currentMembers.getCurrentUser());
+                    dispose();
+                    new Dashboard(p);
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
             }
 
             else

@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 
 public class Dashboard extends JFrame
@@ -25,9 +26,14 @@ public class Dashboard extends JFrame
     private JButton WATCHLIST_button;
     private JButton LOGOUT_button;
 
-    public Dashboard()
+    private Portfolio p;
+
+    public Dashboard(Portfolio p)
     {
         super("Portfolio");
+        this.p = p;
+        //this.data = p.getData();
+
         setSize(900,600);
         setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         setLayout(null);
@@ -168,9 +174,15 @@ public class Dashboard extends JFrame
         setLocation(x, y);
 
 
-        
+        updateTable();
     }
 
+    private void updateTable(){
+
+        Object[][] data = this.p.getData();
+        this.dm = new DefaultTableModel(data,this.columnNames);
+        this.table.setModel(dm);
+    }
     private class BUY_buttonClicked implements ActionListener
     {
         public void actionPerformed(ActionEvent e)

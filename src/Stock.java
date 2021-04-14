@@ -39,7 +39,8 @@ public class Stock {
 		return this.price_of_purchase;
 	}
 	public double getEarnings() {
-		return (this.current_price - this.price_of_purchase)*this.shares;
+		Double real_val = (this.current_price - this.price_of_purchase)*this.shares;
+		return Math.floor(real_val* 100) / 100;
 	}
 	public String getSuggestedMove() {
 		//TODO:Calcualted Suggested move based on RSI Index
