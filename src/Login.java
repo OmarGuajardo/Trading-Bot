@@ -69,7 +69,7 @@ public class Login extends JFrame {
         {
             if (currentMembers.logInUser(textField1.getText(),textField2.getText()))
             {
-                setVisible(false);
+                dispose();
                 new Dashboard();
             }
 

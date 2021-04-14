@@ -225,7 +225,7 @@ public class Dashboard extends JFrame
         {
             System.out.println("LOGOUT BUTTON WORKS");
             JOptionPane.showMessageDialog(null, "You have been logged out!");
-            setVisible(false);
+            dispose();
 
             //logging out creates new login panel;
             try {
