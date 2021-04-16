@@ -3,13 +3,10 @@ import java.util.ArrayList;
 
 public class Portfolio {
 
-	private int max_stocks = 100;
-	private int current_index = 0;
 	private ArrayList<Stock> stocks = new ArrayList<Stock>();
 
 	
 	public Portfolio(ArrayList<Stock> stocks) {
-		current_index = stocks.size();
 		this.stocks = stocks;
 	}
 	

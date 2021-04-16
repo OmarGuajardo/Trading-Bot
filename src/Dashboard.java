@@ -26,14 +26,12 @@ public class Dashboard extends JFrame
     private JButton WATCHLIST_button;
     private JButton LOGOUT_button;
 
-    private Portfolio p;
+    private Broker broker;
 
-    public Dashboard(Portfolio p)
+    public Dashboard(Broker broker)
     {
         super("Portfolio");
-        this.p = p;
-        //this.data = p.getData();
-
+        this.broker = broker;
         setSize(900,600);
         setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         setLayout(null);
@@ -125,7 +123,7 @@ public class Dashboard extends JFrame
         DEPOSIT_button = new JButton("DEPOSIT");
         DEPOSIT_button.setSize(100, 30);
         DEPOSIT_button.setLocation(750, 350);
-        DEPOSIT_button.addActionListener(new DEPOSIT_buttonClicked());
+        DEPOSIT_button.addActionListener(new DEPOSIT_buttonClicked(this.broker));
         add(DEPOSIT_button);
         setVisible(true);
 
@@ -178,8 +176,7 @@ public class Dashboard extends JFrame
     }
 
     private void updateTable(){
-
-        Object[][] data = this.p.getData();
+        Object[][] data = this.broker.getPortfolio().getData();
         this.dm = new DefaultTableModel(data,this.columnNames);
         this.table.setModel(dm);
     }
@@ -209,9 +206,18 @@ public class Dashboard extends JFrame
 
     private class DEPOSIT_buttonClicked implements ActionListener
     {
+        Broker b;
+        DEPOSIT_buttonClicked(Broker b){
+            this.b = b;
+        }
         public void actionPerformed(ActionEvent e)
         {
             System.out.println("DEPOSIT BUTTON WORKS");
+            try {
+                this.b.depositMoney(4000);
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
         }
     }
 

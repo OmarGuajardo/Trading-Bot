@@ -72,7 +72,8 @@ public class Login extends JFrame {
                 try {
                     Portfolio p = current.fetchPortfolio(currentMembers.getCurrentUser());
                     dispose();
-                    new Dashboard(p);
+                    Broker broker = new Broker(currentMembers.getCurrentUser(),p);
+                    new Dashboard(broker);
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
