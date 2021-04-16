@@ -3,7 +3,8 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 
 public class Dashboard extends JFrame
@@ -15,7 +16,7 @@ public class Dashboard extends JFrame
     private JScrollPane scroll;
 
 
-    private JTextField TickerNumber1,ShareNumber1,IndexNumber1,ShareNumber2,TickerNumber2,DepositAmount;
+    private static JTextField TickerNumber1,ShareNumber1,IndexNumber1,ShareNumber2,TickerNumber2,DepositAmount;
 
     private JButton BUY_button;
     private JButton SELL_button;
@@ -25,12 +26,16 @@ public class Dashboard extends JFrame
     private JButton WATCHLIST_button;
     private JButton LOGOUT_button;
 
-    public Dashboard()
+    private Broker broker;
+
+    public Dashboard(Broker broker)
     {
         super("Portfolio");
+        this.broker = broker;
         setSize(900,600);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         setLayout(null);
+
 
         table = new JTable();
         dm = new DefaultTableModel(data, columnNames);
@@ -118,7 +123,7 @@ public class Dashboard extends JFrame
         DEPOSIT_button = new JButton("DEPOSIT");
         DEPOSIT_button.setSize(100, 30);
         DEPOSIT_button.setLocation(750, 350);
-        DEPOSIT_button.addActionListener(new DEPOSIT_buttonClicked());
+        DEPOSIT_button.addActionListener(new DEPOSIT_buttonClicked(this.broker,this.DepositAmount));
         add(DEPOSIT_button);
         setVisible(true);
 
@@ -167,9 +172,14 @@ public class Dashboard extends JFrame
         setLocation(x, y);
 
 
-        
+        updateTable();
     }
 
+    private void updateTable(){
+        Object[][] data = this.broker.getPortfolio().getData();
+        this.dm = new DefaultTableModel(data,this.columnNames);
+        this.table.setModel(dm);
+    }
     private class BUY_buttonClicked implements ActionListener
     {
         public void actionPerformed(ActionEvent e)
@@ -196,9 +206,22 @@ public class Dashboard extends JFrame
 
     private class DEPOSIT_buttonClicked implements ActionListener
     {
+        private Broker b;
+        private JTextField tf;
+        DEPOSIT_buttonClicked(Broker b, JTextField tf){
+            this.b = b;
+            this.tf = tf;
+        }
         public void actionPerformed(ActionEvent e)
         {
             System.out.println("DEPOSIT BUTTON WORKS");
+            System.out.println(Dashboard.DepositAmount.getText());
+            try {
+                double money = Double.parseDouble(Dashboard.DepositAmount.getText());
+                this.b.depositMoney(money);
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
         }
     }
 
@@ -223,6 +246,15 @@ public class Dashboard extends JFrame
         public void actionPerformed(ActionEvent e)
         {
             System.out.println("LOGOUT BUTTON WORKS");
+            JOptionPane.showMessageDialog(null, "You have been logged out!");
+            dispose();
+
+            //logging out creates new login panel;
+            try {
+                new Login();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
         }
     }
 

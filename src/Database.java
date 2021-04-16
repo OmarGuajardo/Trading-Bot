@@ -29,7 +29,9 @@ public class Database {
 					rs.getString(2),
 					rs.getString(3),
 					rs.getString(4),
-					rs.getString(5));
+					rs.getString(5),
+					rs.getDouble(6)
+			);
 			users.add(u);
 		}
 		Members m = new Members(users);
@@ -89,9 +91,15 @@ public class Database {
 			PreparedStatement preparedStatement = connection.prepareStatement(statement);
 			preparedStatement.executeUpdate();
 		}
-	
-	
-	
+
+		public static void changeMoney(User u,Double money) throws SQLException {
+
+			String statement = ("UPDATE Users" + " SET deposit="+ money + " WHERE user_id="+u.getUserId()+";");
+			PreparedStatement preparedStatement = connection.prepareStatement(statement);
+			preparedStatement.executeUpdate();
+		}
+
+
 	//Will close connection to the Database
 	public void closeConnection() throws SQLException {
 		connection.close();

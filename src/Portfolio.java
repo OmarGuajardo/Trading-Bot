@@ -3,17 +3,27 @@ import java.util.ArrayList;
 
 public class Portfolio {
 
-	private int max_stocks = 100;
-	private int current_index = 0;
 	private ArrayList<Stock> stocks = new ArrayList<Stock>();
 
 	
 	public Portfolio(ArrayList<Stock> stocks) {
-		current_index = stocks.size();
 		this.stocks = stocks;
 	}
 	
-	
+	public Object[][] getData(){
+		Object[][] data = new Object[this.stocks.size()][7];
+		for(int i = 0 ; i <this.stocks.size(); i++){
+			Stock s = this.stocks.get(i);
+			data[i][0] = String.valueOf(s.getID());
+			data[i][1] = String.valueOf(s.getTickerNumber());
+			data[i][2] = String.valueOf(s.getCurrentPrice());
+			data[i][3] = String.valueOf(s.getPriceOfPurchase());
+			data[i][4] = String.valueOf(s.getEarnings());
+			data[i][5] = String.valueOf(s.getShares());
+			data[i][6] = "NA";
+		}
+		return data;
+	}
 	public void showPortofolio() {
 		System.out.println(" ");
 		System.out.printf("%-17s %-11s %-9s %-9s %-9s %-9s\n",
