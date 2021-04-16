@@ -94,9 +94,7 @@ public class Database {
 
 		public static void changeMoney(User u,Double money) throws SQLException {
 
-			String statement = ("UPDATE Users" +
-								"SET deposit="+ money +
-								"WHERE user_id="+u.getUserId()+";");
+			String statement = ("UPDATE Users" + " SET deposit="+ money + " WHERE user_id="+u.getUserId()+";");
 			PreparedStatement preparedStatement = connection.prepareStatement(statement);
 			preparedStatement.executeUpdate();
 		}

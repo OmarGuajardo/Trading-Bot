@@ -16,7 +16,7 @@ public class Dashboard extends JFrame
     private JScrollPane scroll;
 
 
-    private JTextField TickerNumber1,ShareNumber1,IndexNumber1,ShareNumber2,TickerNumber2,DepositAmount;
+    private static JTextField TickerNumber1,ShareNumber1,IndexNumber1,ShareNumber2,TickerNumber2,DepositAmount;
 
     private JButton BUY_button;
     private JButton SELL_button;
@@ -123,7 +123,7 @@ public class Dashboard extends JFrame
         DEPOSIT_button = new JButton("DEPOSIT");
         DEPOSIT_button.setSize(100, 30);
         DEPOSIT_button.setLocation(750, 350);
-        DEPOSIT_button.addActionListener(new DEPOSIT_buttonClicked(this.broker));
+        DEPOSIT_button.addActionListener(new DEPOSIT_buttonClicked(this.broker,this.DepositAmount));
         add(DEPOSIT_button);
         setVisible(true);
 
@@ -206,15 +206,19 @@ public class Dashboard extends JFrame
 
     private class DEPOSIT_buttonClicked implements ActionListener
     {
-        Broker b;
-        DEPOSIT_buttonClicked(Broker b){
+        private Broker b;
+        private JTextField tf;
+        DEPOSIT_buttonClicked(Broker b, JTextField tf){
             this.b = b;
+            this.tf = tf;
         }
         public void actionPerformed(ActionEvent e)
         {
             System.out.println("DEPOSIT BUTTON WORKS");
+            System.out.println(Dashboard.DepositAmount.getText());
             try {
-                this.b.depositMoney(4000);
+                double money = Double.parseDouble(Dashboard.DepositAmount.getText());
+                this.b.depositMoney(money);
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
