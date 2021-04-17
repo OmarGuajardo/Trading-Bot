@@ -10,9 +10,41 @@ public class Yahoo {
 	
 	private static String MAIN_ENDPOINT = "https://yahoo-finance15.p.rapidapi.com/api/yahoo/";
 	private static String API_KEY = "8aa66e0b7bmshdc7f8bdcbb1201dp1ce5cejsn59112c64ee82";
-	
-	
-	//Takes in the Ticker of a stock and returns the current raw price 
+
+    public static double getSMA(String ticker,int period){
+        double sma = 0.0;
+    	String ENDPOINT = "https://www.alphavantage.co/query?function=SMA&symbol="+ticker+"&interval=daily&time_period="+period+"&series_type=open&apikey=O3LJGOZBDPIIH54J";
+		HttpRequest request = HttpRequest.newBuilder()
+				.uri(URI.create(ENDPOINT))
+				.method("GET", HttpRequest.BodyPublishers.noBody())
+				.build();
+		HttpResponse<String> response;
+		try {
+			response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+			String body = response.body();
+			try {
+				JSONObject json = new JSONObject(body);
+				String sma_string = json.getJSONObject("Technical Analysis: SMA")
+							      .getJSONObject("2021-04-16").getString("SMA");
+				sma = Double.parseDouble(sma_string);
+				System.out.println(sma_string);
+
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return sma;
+	}
+	//Takes in the Ticker of a stock and returns the current raw price
 	public static double getStockPrice (String ticker){
 		String ENDPOINT = MAIN_ENDPOINT + "qu/quote/" + ticker + "/financial-data";
 		double price = 0.0;
