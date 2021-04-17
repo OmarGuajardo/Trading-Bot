@@ -20,7 +20,7 @@ public class Portfolio {
 			data[i][3] = String.valueOf(s.getPriceOfPurchase());
 			data[i][4] = String.valueOf(s.getEarnings());
 			data[i][5] = String.valueOf(s.getShares());
-			data[i][6] = "NA";
+			data[i][6] = s.getSuggestedMove();
 		}
 		return data;
 	}
@@ -67,7 +67,7 @@ public class Portfolio {
 		for(Stock s : this.stocks)	{
 			earnings += s.getEarnings();
 		}
-		return earnings;
+		return Math.floor(earnings* 100) / 100;
 	}
 	public Stock getStock(long id){
 	    Stock stock = null;

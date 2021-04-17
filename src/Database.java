@@ -52,7 +52,7 @@ public class Database {
 					rs.getLong(6),
 					rs.getString(2),
 					rs.getDouble(3),
-					rs.getDouble(4),
+					Yahoo.getStockPrice(rs.getString(2)),
 					rs.getInt(5));
 			stocks.add(s);
 		}

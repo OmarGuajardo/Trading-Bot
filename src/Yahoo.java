@@ -11,11 +11,13 @@ public class Yahoo {
 	private static String MAIN_ENDPOINT = "https://yahoo-finance15.p.rapidapi.com/api/yahoo/";
 	private static String API_KEY = "8aa66e0b7bmshdc7f8bdcbb1201dp1ce5cejsn59112c64ee82";
 
-    public static double getSMA(String ticker,int period){
+    public static double getSMA(String ticker,int period,int index){
         double sma = 0.0;
-    	String ENDPOINT = "https://www.alphavantage.co/query?function=SMA&symbol="+ticker+"&interval=daily&time_period="+period+"&series_type=open&apikey=O3LJGOZBDPIIH54J";
+    	String ENDPOINT = "https://www.alphavantage.co/query?function=SMA&symbol="+ticker+"&interval=daily&time_period="+period+"&series_type=open&apikey=";
+    	String[] keys = {"O3LJGOZBDPIIH54J","UB8D8APZUHU8HAUC","P6YX5BGBFQH42QJV"};
+    	System.out.println(keys[index]);
 		HttpRequest request = HttpRequest.newBuilder()
-				.uri(URI.create(ENDPOINT))
+				.uri(URI.create(ENDPOINT+keys[index]))
 				.method("GET", HttpRequest.BodyPublishers.noBody())
 				.build();
 		HttpResponse<String> response;
@@ -31,6 +33,7 @@ public class Yahoo {
 
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
+				System.out.println(body);
 				e.printStackTrace();
 			}
 

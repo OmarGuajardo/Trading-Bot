@@ -6,8 +6,7 @@ public class Main {
 	
 
 	public static void main(String[] args) throws SQLException {
-//		new Login();
-		Yahoo.getSMA("TSLA",50);
+		new Login();
 	}
 
 }
