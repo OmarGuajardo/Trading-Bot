@@ -16,13 +16,10 @@ public class Dashboard extends JFrame
 
 
     private static JTextField TickerNumber1,ShareNumber1,IndexNumber1,ShareNumber2,TickerNumber2,DepositAmount;
-
+    private static JLabel messageLabel1, messageLabel2, messageLabel3;
     private JButton BUY_button;
     private JButton SELL_button;
-    private JButton ADD_button;
     private JButton DEPOSIT_button;
-    private JButton PORTFOLIO_button;
-    private JButton WATCHLIST_button;
     private JButton LOGOUT_button;
 
     private static Broker broker;
@@ -47,22 +44,22 @@ public class Dashboard extends JFrame
         
         
         //Earnings *add how to calculate earnings or function that does so
-        JLabel messageLabel1 = new JLabel("Earnings: ");
-        messageLabel1.setSize(100, 30);
+        messageLabel1 = new JLabel("Earnings: ");
+        messageLabel1.setSize(330, 30);
         messageLabel1.setLocation(50, 520);
         add(messageLabel1);
         //Earnings
 
         //Money Invested *add how to calculate earnings or function that does so
-        JLabel messageLabel2 = new JLabel("Money Invested: ");
-        messageLabel2.setSize(130, 30);
+        messageLabel2 = new JLabel("Money Invested: ");
+        messageLabel2.setSize(330, 30);
         messageLabel2.setLocation(200, 520);
         add(messageLabel2);
         //Money Invested
 
         //Balance *add how to calculate earnings or function that does so*
-        JLabel messageLabel3 = new JLabel("Balance: ");
-        messageLabel3.setSize(100, 30);
+        messageLabel3 = new JLabel("Balance: ");
+        messageLabel3.setSize(330, 30);
         messageLabel3.setLocation(630, 400);
         add(messageLabel3);
         //Balance
@@ -115,21 +112,6 @@ public class Dashboard extends JFrame
         //^^Dealing with Selling^^
 
 
-        //Add to watchlist
-        ADD_button = new JButton("ADD TO WATCHLIST");
-        ADD_button.setSize(200, 30);
-        ADD_button.setLocation(170, 450);
-        ADD_button.addActionListener(new ADD_buttonClicked());
-        add(ADD_button);
-        setVisible(true);
-
-        TickerNumber2 = new JTextField(10);
-        TickerNumber2.setHorizontalAlignment(JTextField.CENTER);
-        TickerNumber2.setText("Ticker #");
-        TickerNumber2.setSize(100, 30);
-        TickerNumber2.setLocation(50, 450);
-        add(TickerNumber2);
-        //^^^Add to watchlist^^^
 
 
         // Deposit
@@ -149,24 +131,6 @@ public class Dashboard extends JFrame
         add(DepositAmount);
         // ^^^ Deposit ^^^
 
-
-        // Portfolio
-        PORTFOLIO_button = new JButton("PORTFOLIO");
-        PORTFOLIO_button.setSize(130, 30);
-        PORTFOLIO_button.setLocation(450, 520);
-        PORTFOLIO_button.addActionListener(new PORTFOLIO_buttonClicked());
-        add(PORTFOLIO_button);
-        setVisible(true);
-        // ^^^ Portfolio ^^^
-
-        // Watchlist
-        WATCHLIST_button = new JButton("WATCHLIST");
-        WATCHLIST_button.setSize(130, 30);
-        WATCHLIST_button.setLocation(600, 520);
-        WATCHLIST_button.addActionListener(new WATCHLIST_buttonClicked());
-        add(WATCHLIST_button);
-        setVisible(true);
-        // ^^^ Watchlist ^^^
 
         // Logout
         LOGOUT_button = new JButton("LOGOUT");
@@ -188,9 +152,12 @@ public class Dashboard extends JFrame
         updateTable();
     }
 
-    public static void updateTable(){
+    public static void updateTable() {
         Object[][] data = broker.getPortfolio().getData();
-        dm = new DefaultTableModel(data,columnNames);
+        dm = new DefaultTableModel(data, columnNames);
+        messageLabel1.setText("Earnings: " + broker.getPortfolio().getEarnings());
+        messageLabel2.setText("Money Invested: " + broker.getUser().getMoney());
+        messageLabel3.setText("Balance: " + broker.getUser().getBalance());
         table.setModel(dm);
     }
     private class BUY_buttonClicked implements ActionListener
@@ -229,13 +196,6 @@ public class Dashboard extends JFrame
         }
     }
 
-    private class ADD_buttonClicked implements ActionListener
-    {
-        public void actionPerformed(ActionEvent e)
-        {
-            System.out.println("ADD BUTTON WORKS");
-        }
-    }
 
     private class DEPOSIT_buttonClicked implements ActionListener
     {
@@ -252,25 +212,10 @@ public class Dashboard extends JFrame
             try {
                 double money = Double.parseDouble(Dashboard.DepositAmount.getText());
                 this.b.depositMoney(money);
+                Dashboard.updateTable();
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
-        }
-    }
-
-    private class PORTFOLIO_buttonClicked implements ActionListener
-    {
-        public void actionPerformed(ActionEvent e)
-        {
-            System.out.println("PORTFOLIO BUTTON WORKS");
-        }
-    }
-
-    private class WATCHLIST_buttonClicked implements ActionListener
-    {
-        public void actionPerformed(ActionEvent e)
-        {
-            System.out.println("BUY BUTTON WORKS");
         }
     }
 

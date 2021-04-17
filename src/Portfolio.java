@@ -62,7 +62,13 @@ public class Portfolio {
 		this.stocks.add(stock);
 		Database.addStockDB(stock);
 	}
-
+	public double getEarnings(){
+		double earnings = 0.0;
+		for(Stock s : this.stocks)	{
+			earnings += s.getEarnings();
+		}
+		return earnings;
+	}
 	public Stock getStock(long id){
 	    Stock stock = null;
 	    for(Stock s : this.stocks){
