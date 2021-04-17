@@ -30,7 +30,8 @@ public class Database {
 					rs.getString(3),
 					rs.getString(4),
 					rs.getString(5),
-					rs.getDouble(6)
+					rs.getDouble(6),
+					rs.getDouble(7)
 			);
 			users.add(u);
 		}
@@ -92,9 +93,9 @@ public class Database {
 			preparedStatement.executeUpdate();
 		}
 
-		public static void changeMoney(User u,Double money) throws SQLException {
+		public static void changeMoney(User u,Double money,Double balance) throws SQLException {
 
-			String statement = ("UPDATE Users" + " SET deposit="+ money + " WHERE user_id="+u.getUserId()+";");
+			String statement = ("UPDATE Users" + " SET deposit="+ money + ",balance=" +balance+" WHERE user_id="+u.getUserId()+";");
 			PreparedStatement preparedStatement = connection.prepareStatement(statement);
 			preparedStatement.executeUpdate();
 		}

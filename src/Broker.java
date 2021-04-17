@@ -11,17 +11,29 @@ public class Broker {
     }
 
     public void depositMoney(double money) throws SQLException {
-        //TODO: User needs to have an option to increase money
         this.u.changeMoney(money);
-        Database.changeMoney(this.u,this.u.getMoney());
+        this.u.changeBalance(money);
+        Database.changeMoney(this.u,this.u.getMoney(),this.u.getBalance());
     }
 
-    public boolean buyStock(Stock s){
-        boolean canBuyStock = true;
+    public boolean buyStock(String ticker,int shares){
+        Double stockPrice = Yahoo.getStockPrice(ticker);
+        if(stockPrice*shares > this.u.getBalance()){
+            System.out.println("User CANNOT buy stock! ");
+            return false;
+        }
+        Stock s = new Stock(
+                System.currentTimeMillis(),
+                ticker,
+                stockPrice,
+                stockPrice,
+                shares
+        );
+        System.out.println("User can buy stock! ");
         //TODO: Add Stock to portfolio
-        //TODO: Withdraw money from User's 'bank'
+        //TODO: Withdraw money from User's balance
         //TODO: If user doesn't have enough money return false
-        return canBuyStock;
+        return true;
     }
     public void sellStock(Stock s, int shares){
         //TODO: Check if stock is in User's portfolio
