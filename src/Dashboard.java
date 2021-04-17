@@ -53,6 +53,20 @@ public class Dashboard extends JFrame
         add(messageLabel1);
         //Earnings
 
+        //Money Invested *add how to calculate earnings or function that does so
+        JLabel messageLabel2 = new JLabel("Money Invested: ");
+        messageLabel2.setSize(130, 30);
+        messageLabel2.setLocation(200, 520);
+        add(messageLabel2);
+        //Money Invested
+
+        //Balance *add how to calculate earnings or function that does so*
+        JLabel messageLabel3 = new JLabel("Balance: ");
+        messageLabel3.setSize(100, 30);
+        messageLabel3.setLocation(630, 400);
+        add(messageLabel3);
+        //Balance
+
         //Dealing with Buying
         BUY_button = new JButton("BUY");
         BUY_button.setSize(100, 30);
