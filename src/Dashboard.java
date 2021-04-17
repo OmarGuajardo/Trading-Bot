@@ -4,15 +4,14 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 
 public class Dashboard extends JFrame
 {
-    private String[] columnNames = {"Index","Ticker","Current Price","Price of Purchase","Earnings","Shares","Suggested Move"} ;
+    private static String[] columnNames = {"Index","Ticker","Current Price","Price of Purchase","Earnings","Shares","Suggested Move"} ;
     private Object[][] data={{"","","","","","",""}};
-    private JTable table;
-    private DefaultTableModel dm;
+    private static JTable table;
+    private static DefaultTableModel dm;
     private JScrollPane scroll;
 
 
@@ -26,7 +25,7 @@ public class Dashboard extends JFrame
     private JButton WATCHLIST_button;
     private JButton LOGOUT_button;
 
-    private Broker broker;
+    private static Broker broker;
 
     public Dashboard(Broker broker)
     {
@@ -175,17 +174,29 @@ public class Dashboard extends JFrame
         updateTable();
     }
 
-    private void updateTable(){
-        Object[][] data = this.broker.getPortfolio().getData();
-        this.dm = new DefaultTableModel(data,this.columnNames);
-        this.table.setModel(dm);
+    public static void updateTable(){
+        Object[][] data = broker.getPortfolio().getData();
+        dm = new DefaultTableModel(data,columnNames);
+        table.setModel(dm);
     }
     private class BUY_buttonClicked implements ActionListener
     {
+
+
         public void actionPerformed(ActionEvent e)
         {
             System.out.println("BUY BUTTON WORKS");
+            String ticker = Dashboard.TickerNumber1.getText();
+            int shares = Integer.valueOf(Dashboard.ShareNumber1.getText());
+            try {
+                if(Dashboard.broker.buyStock(ticker,shares)){
+                    Dashboard.updateTable();
+                }
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
         }
+
     }
 
     private class SELL_buttonClicked implements ActionListener

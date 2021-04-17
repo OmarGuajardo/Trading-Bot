@@ -61,7 +61,6 @@ public class Login extends JFrame {
         /////////////////// NEEDS TO ACCESSES THE DATABASE FIRST TO COMPARE TO TEXTFIELDS /////////
         Database current = new Database();
         Members currentMembers = current.fetchMembers();
-
         private Button1Clicked() throws SQLException {
         }
 

@@ -65,11 +65,13 @@ public class Database {
 	public static void addStockDB(Stock s) throws SQLException {
 		
 		String statement = ("INSERT INTO Stock VALUES ("+
-									s.getID()+","+
+									Members.getCurrentUser().getUserId()+","+
 								"'"+s.getTickerNumber()+"',"+
 									s.getPriceOfPurchase()+","+
 									s.getCurrentPrice()+","+
-									s.getShares()+");");
+									s.getShares()+","+
+									s.getID()+");");
+		System.out.println(statement);
 		PreparedStatement preparedStatement = connection.prepareStatement(statement);
 		preparedStatement.executeUpdate();
 	}

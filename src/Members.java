@@ -4,7 +4,7 @@ import java.util.ArrayList;
 public class Members {
 	
 	ArrayList<User> users = new ArrayList<User>();
-	User curr_user;
+	public static User curr_user;
 	
 	
 	public Members(ArrayList<User> users) {
@@ -56,8 +56,8 @@ public class Members {
 	}
 	
 	//Returns current user logged in
-	public User getCurrentUser() {
-		return this.curr_user;
+	public static User getCurrentUser() {
+		return curr_user;
 	}
 	
 	
