@@ -55,4 +55,13 @@ public class Stock {
 	public long getID() {
 		return this.stock_id;
 	}
+
+	public double sellShares(int s){
+		if(s <= this.shares){
+			double profit = (this.current_price - this.price_of_purchase)*s;
+			this.shares -= s;
+			return profit;
+		}
+		return 0.0;
+	}
 }

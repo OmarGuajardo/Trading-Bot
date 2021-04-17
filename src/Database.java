@@ -75,9 +75,15 @@ public class Database {
 		PreparedStatement preparedStatement = connection.prepareStatement(statement);
 		preparedStatement.executeUpdate();
 	}
-	
+
+	public static void sellStock(Stock s) throws SQLException {
+
+		String statement = ("UPDATE Stock SET shares="+s.getShares()+" WHERE stock_id="+s.getID()+";");
+		PreparedStatement preparedStatement = connection.prepareStatement(statement);
+		preparedStatement.executeUpdate();
+	}
 	public static void removeStockDB(long stock_id) throws SQLException {
-		
+
 		String statement = ("DELETE FROM Stock WHERE stock_id="+stock_id+";");
 		PreparedStatement preparedStatement = connection.prepareStatement(statement);
 		preparedStatement.executeUpdate();

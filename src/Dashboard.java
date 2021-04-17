@@ -203,6 +203,14 @@ public class Dashboard extends JFrame
     {
         public void actionPerformed(ActionEvent e)
         {
+            long stock_id = Long.parseLong(Dashboard.IndexNumber1.getText());
+            int shares = Integer.parseInt(Dashboard.ShareNumber2.getText());
+            try {
+                Dashboard.broker.sellStock(stock_id,shares);
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            Dashboard.updateTable();
             System.out.println("SELL BUTTON WORKS");
         }
     }

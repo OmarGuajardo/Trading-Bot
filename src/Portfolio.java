@@ -62,7 +62,16 @@ public class Portfolio {
 		this.stocks.add(stock);
 		Database.addStockDB(stock);
 	}
-	
+
+	public Stock getStock(long id){
+	    Stock stock = null;
+	    for(Stock s : this.stocks){
+	    	if(s.getID() == id){
+	    		return s;
+			}
+		}
+	    return stock;
+	}
 	//Removing a Stock
 	public void removeStock(long id) throws SQLException {
 		Stock stockRemove = null;
