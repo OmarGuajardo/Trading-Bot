@@ -30,7 +30,8 @@ public class Database {
 					rs.getString(3),
 					rs.getString(4),
 					rs.getString(5),
-					rs.getDouble(6)
+					rs.getDouble(6),
+					rs.getDouble(7)
 			);
 			users.add(u);
 		}
@@ -51,7 +52,7 @@ public class Database {
 					rs.getLong(6),
 					rs.getString(2),
 					rs.getDouble(3),
-					rs.getDouble(4),
+					Yahoo.getStockPrice(rs.getString(2)),
 					rs.getInt(5));
 			stocks.add(s);
 		}
@@ -64,17 +65,25 @@ public class Database {
 	public static void addStockDB(Stock s) throws SQLException {
 		
 		String statement = ("INSERT INTO Stock VALUES ("+
-									s.getID()+","+
+									Members.getCurrentUser().getUserId()+","+
 								"'"+s.getTickerNumber()+"',"+
 									s.getPriceOfPurchase()+","+
 									s.getCurrentPrice()+","+
-									s.getShares()+");");
+									s.getShares()+","+
+									s.getID()+");");
+		System.out.println(statement);
 		PreparedStatement preparedStatement = connection.prepareStatement(statement);
 		preparedStatement.executeUpdate();
 	}
-	
+
+	public static void sellStock(Stock s) throws SQLException {
+
+		String statement = ("UPDATE Stock SET shares="+s.getShares()+" WHERE stock_id="+s.getID()+";");
+		PreparedStatement preparedStatement = connection.prepareStatement(statement);
+		preparedStatement.executeUpdate();
+	}
 	public static void removeStockDB(long stock_id) throws SQLException {
-		
+
 		String statement = ("DELETE FROM Stock WHERE stock_id="+stock_id+";");
 		PreparedStatement preparedStatement = connection.prepareStatement(statement);
 		preparedStatement.executeUpdate();
@@ -92,9 +101,9 @@ public class Database {
 			preparedStatement.executeUpdate();
 		}
 
-		public static void changeMoney(User u,Double money) throws SQLException {
+		public static void changeMoney(User u,Double money,Double balance) throws SQLException {
 
-			String statement = ("UPDATE Users" + " SET deposit="+ money + " WHERE user_id="+u.getUserId()+";");
+			String statement = ("UPDATE Users" + " SET deposit="+ money + ",balance=" +balance+" WHERE user_id="+u.getUserId()+";");
 			PreparedStatement preparedStatement = connection.prepareStatement(statement);
 			preparedStatement.executeUpdate();
 		}

@@ -11,19 +11,51 @@ public class Broker {
     }
 
     public void depositMoney(double money) throws SQLException {
-        //TODO: User needs to have an option to increase money
         this.u.changeMoney(money);
-        Database.changeMoney(this.u,this.u.getMoney());
+        this.u.changeBalance(money);
+        Database.changeMoney(this.u,this.u.getMoney(),this.u.getBalance());
     }
 
-    public boolean buyStock(Stock s){
-        boolean canBuyStock = true;
+    public boolean buyStock(String ticker,int shares) throws SQLException {
+        Double stockPrice = Yahoo.getStockPrice(ticker);
+        if(stockPrice*shares > this.u.getBalance()){
+            System.out.println("User CANNOT buy stock! ");
+            return false;
+        }else{
+
+            Stock s = new Stock(
+                    System.currentTimeMillis(),
+                    ticker,
+                    stockPrice,
+                    stockPrice,
+                    shares
+            );
+            System.out.println("User can buy stock! ");
+            this.u.changeBalance(-1*stockPrice*shares);
+            Database.changeMoney(this.u,this.u.getMoney(),this.u.getBalance());
+            this.p.addStock(s);
+            return true;
+        }
+
         //TODO: Add Stock to portfolio
-        //TODO: Withdraw money from User's 'bank'
+        //TODO: Withdraw money from User's balance
         //TODO: If user doesn't have enough money return false
-        return canBuyStock;
     }
-    public void sellStock(Stock s, int shares){
+    public void sellStock(long stock_id, int shares) throws SQLException {
+        Stock s = this.p.getStock(stock_id);
+        if(s != null){
+            double profit = s.sellShares(shares);
+            if(s.getShares() == 0){
+                this.p.removeStock(s.getID());
+                Database.removeStockDB(s.getID());
+            }else{
+                //TODO:Database.sellStock
+                Database.sellStock(s);
+            }
+            User curr_user = Members.getCurrentUser();
+            curr_user.changeBalance(profit);
+            Database.changeMoney(curr_user,curr_user.getMoney(),curr_user.getBalance());
+        }
         //TODO: Check if stock is in User's portfolio
         //TODO: Calculate how much money they are going to get and add that do
         //TODO: User's 'bank'

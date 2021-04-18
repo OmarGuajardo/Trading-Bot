@@ -20,7 +20,7 @@ public class Portfolio {
 			data[i][3] = String.valueOf(s.getPriceOfPurchase());
 			data[i][4] = String.valueOf(s.getEarnings());
 			data[i][5] = String.valueOf(s.getShares());
-			data[i][6] = "NA";
+			data[i][6] = s.getSuggestedMove();
 		}
 		return data;
 	}
@@ -58,10 +58,26 @@ public class Portfolio {
 	
 	//Adding a Stock
 	public void addStock(Stock stock) throws SQLException {
+
 		this.stocks.add(stock);
 		Database.addStockDB(stock);
 	}
-	
+	public double getEarnings(){
+		double earnings = 0.0;
+		for(Stock s : this.stocks)	{
+			earnings += s.getEarnings();
+		}
+		return Math.floor(earnings* 100) / 100;
+	}
+	public Stock getStock(long id){
+	    Stock stock = null;
+	    for(Stock s : this.stocks){
+	    	if(s.getID() == id){
+	    		return s;
+			}
+		}
+	    return stock;
+	}
 	//Removing a Stock
 	public void removeStock(long id) throws SQLException {
 		Stock stockRemove = null;
